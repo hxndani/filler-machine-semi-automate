@@ -6,14 +6,14 @@ Proyek ini adalah sistem kontrol semi otomatis untuk pompa air yang dilengkapi d
 ![image2.jpeg](https://github.com/hxndani/filler-machine-semi-automate/blob/066cc8b17f55c09d25fe46d6c8eb0aad8e065a2c/image2.jpeg)
 
 # Pinout dan Fungsi
-PB11	SSR Pin: Mengontrol Solid State Relay untuk membuka/menutup keran solenoid.
-PB1	MOSFET Pin: Output PWM untuk mengontrol kecepatan pompa air.
-PB15	Button Power Pin: Tombol untuk memulai atau menghentikan proses pengisian.
-PB14	Button Plus Pin: Tombol untuk menambah nilai timer atau kecepatan pompa.
-PB13	Button Min Pin: Tombol untuk mengurangi nilai timer atau kecepatan pompa.
-PB12	Button Save Pin: Tombol untuk menyimpan pengaturan timer atau kecepatan pompa ke EEPROM.
-PB3	Button Menu Pin: Tombol untuk beralih antara menu pengaturan timer dan kecepatan pompa.
-I2C (SDA, SCL)	LCD I2C: Untuk menampilkan informasi dan pengaturan pada LCD 16x2.
+- PB11	SSR Pin: Mengontrol Solid State Relay untuk membuka/menutup keran solenoid.
+- PB1	MOSFET Pin: Output PWM untuk mengontrol kecepatan pompa air.
+- PB15	Button Power Pin: Tombol untuk memulai atau menghentikan proses pengisian.
+- PB14	Button Plus Pin: Tombol untuk menambah nilai timer atau kecepatan pompa.
+- PB13	Button Min Pin: Tombol untuk mengurangi nilai timer atau kecepatan pompa.
+- PB12	Button Save Pin: Tombol untuk menyimpan pengaturan timer atau kecepatan pompa ke EEPROM.
+- PB3	Button Menu Pin: Tombol untuk beralih antara menu pengaturan timer dan kecepatan pompa.
+- I2C (SDA, SCL)	LCD I2C: Untuk menampilkan informasi dan pengaturan pada LCD 16x2.
 
 # Fitur Utama
 - Kontrol Otomatis: Memulai dan menghentikan proses pengisian air secara otomatis berdasarkan timer yang telah ditentukan.
