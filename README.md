@@ -3,7 +3,7 @@
 Proyek ini adalah sistem kontrol semi otomatis untuk pompa air yang dilengkapi dengan fitur timer dan pengaturan kecepatan pompa menggunakan PWM, serta penyimpanan pengaturan ke EEPROM. Sistem ini dirancang untuk memudahkan pengguna dalam mengatur durasi pengisian dan kekuatan aliran pompa air.
 
 ![image1.jpeg](https://github.com/hxndani/filler-machine-semi-automate/blob/db0990f174511227454e982f136b3c87f955b329/image1.jpeg)
-![image2.jpeg]()
+![image2.jpeg](https://github.com/hxndani/filler-machine-semi-automate/blob/066cc8b17f55c09d25fe46d6c8eb0aad8e065a2c/image2.jpeg)
 
 # Pinout dan Fungsi
 PB11	SSR Pin: Mengontrol Solid State Relay untuk membuka/menutup keran solenoid.
