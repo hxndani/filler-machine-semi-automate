@@ -68,17 +68,17 @@ void setup() {
   pinMode(buttonMenuPin, INPUT_PULLUP);
 
   digitalWrite(ssrPin, LOW);
-  analogWrite(mosfetPin, 0); // Pastikan motor mati di awal
+  analogWrite(mosfetPin, 0); // Matiin motor saat diawal
 
   // Baca settingan dari EEPROM
   EEPROM.get(timerAddress, currentSetTimer);
-  if (currentSetTimer == 0xFFFFFFFF || currentSetTimer == 0) { // Jika EEPROM kosong atau nilai invalid
+  if (currentSetTimer == 0xFFFFFFFF || currentSetTimer == 0) { // Kalo EEPROM kosong atau nilai invalid
     currentSetTimer = defaultSetTimer;
     EEPROM.put(timerAddress, currentSetTimer);
   }
 
   EEPROM.get(speedMotorPwmAddress, currentSpeedMotorPwm);
-  if (currentSpeedMotorPwm == 0xFF || currentSpeedMotorPwm == 0) { // Jika EEPROM kosong atau nilai invalid
+  if (currentSpeedMotorPwm == 0xFF || currentSpeedMotorPwm == 0) { // Kalo EEPROM kosong atau nilai invalid
     currentSpeedMotorPwm = defaultSpeedMotorPwm;
     EEPROM.put(speedMotorPwmAddress, currentSpeedMotorPwm);
   }
@@ -93,7 +93,7 @@ void setup() {
   Serial.print("Speed Motor PWM: ");
   Serial.println(currentSpeedMotorPwm);
 
-  displayCurrentMenu(); // Tampilkan menu di awal
+  displayCurrentMenu(); // Tampilin menu di awal
 }
 
 void loop() {
@@ -103,7 +103,7 @@ void loop() {
   handleSaveButton();
   handleMenuButton();
 
-  // Tampilkan pesan "Saved!" jika flag aktif
+  // Tampilin pesan "Saved!" kalo flag aktif
   if (isDisplayingSaveMessage) {
     lcd.setCursor(0, 0);
     lcd.print("    Saved!      ");
@@ -111,18 +111,18 @@ void loop() {
     lcd.print("                "); // Kosongkan baris kedua
     if (millis() - saveMessageStartTime >= saveMessageDuration) {
       isDisplayingSaveMessage = false;
-      displayCurrentMenu(); // Kembali menampilkan menu setelah pesan hilang
+      displayCurrentMenu(); // Tampilin menu lagi kalo pesan udah hilang
     }
   } else {
-    // Jika sedang mengisi, tampilkan countdown. Jika tidak, tampilkan menu.
+    // Jika sedang mengisi, tampilin countdown. Jika tidak, tampilin menu.
     if (isFilling) {
       if (millis() - currentTimer >= currentSetTimer) {
         stopFilling();
       }
-      // Saat mengisi, selalu tampilkan countdown timer
+      // Saat mengisi, selalu tampilin countdown timer
       displayCountdown((currentSetTimer - (millis() - currentTimer)) / 1000.0);
     } else {
-      displayCurrentMenu(); // Selalu tampilkan menu saat tidak mengisi
+      displayCurrentMenu(); // Selalu tampilin menu saat tidak mengisi
     }
   }
 }
