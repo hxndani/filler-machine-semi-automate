@@ -12,7 +12,6 @@ const int speedMotorPwmAddress = sizeof(unsigned long); // Alamat untuk menyimpa
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Pinout
-const byte ssrPin = PB11; // Pin yang terhubung ke SSR untuk kontrol solenoid (buka/tutup keran)
 const byte mosfetPin = PB1;       // Pin PWM untuk kontrol Pompa Air
 const byte buttonPowerPin = PB15; // Untuk mulai/mati
 const byte buttonPlusPin = PB14;  // Tambah waktu/timer atau kecepatan motor pompa
@@ -59,7 +58,6 @@ void setup() {
   lcd.backlight();
   lcd.clear();
 
-  pinMode(ssrPin, OUTPUT);
   pinMode(mosfetPin, OUTPUT);
   pinMode(buttonPowerPin, INPUT_PULLUP);
   pinMode(buttonPlusPin, INPUT_PULLUP);
@@ -67,7 +65,6 @@ void setup() {
   pinMode(buttonSavePin, INPUT_PULLUP);
   pinMode(buttonMenuPin, INPUT_PULLUP);
 
-  digitalWrite(ssrPin, LOW);
   analogWrite(mosfetPin, 0); // Matiin motor saat diawal
 
   // Baca settingan dari EEPROM
@@ -86,12 +83,6 @@ void setup() {
   // Set nilai preview sama dengan nilai yang tersimpan
   previewSetTimer = currentSetTimer;
   previewSpeedMotorPwm = currentSpeedMotorPwm;
-
-  Serial.begin(9600);
-  Serial.print("Set Timer (ms): ");
-  Serial.println(currentSetTimer);
-  Serial.print("Speed Motor PWM: ");
-  Serial.println(currentSpeedMotorPwm);
 
   displayCurrentMenu(); // Tampilin menu di awal
 }
@@ -229,11 +220,11 @@ void handleSaveButton() {
       if (currentMenu == 0) { // Simpan Timer
         currentSetTimer = previewSetTimer;
         EEPROM.put(timerAddress, currentSetTimer);
-        Serial.println("Timer saved: " + String(currentSetTimer));
+        
       } else if (currentMenu == 1) { // Simpan Kecepatan Motor
         currentSpeedMotorPwm = previewSpeedMotorPwm;
         EEPROM.put(speedMotorPwmAddress, currentSpeedMotorPwm);
-        Serial.println("Speed Motor saved: " + String(currentSpeedMotorPwm));
+        
       }
       isDisplayingSaveMessage = true; // Set flag untuk menampilkan pesan "Saved"
       saveMessageStartTime = millis(); // Catat waktu mulai pesan
@@ -255,15 +246,12 @@ void handleMenuButton() {
 void startFilling() {
   isFilling = true; //
   currentTimer = millis();
-  digitalWrite(ssrPin, HIGH); // Buka keran (SSR aktif)
   analogWrite(mosfetPin, currentSpeedMotorPwm); // Pompa nyala dengan kecepatan yang tersimpan
 
-  Serial.println("Filling started with timer: " + String(currentSetTimer) + " ms, Speed: " + String(currentSpeedMotorPwm) + " PWM");
 }
 
 void stopFilling() {
   isFilling = false;
-  digitalWrite(ssrPin, LOW); // Tutup keran (SSR non-aktif)
   analogWrite(mosfetPin, 0);           // Pompa mati
   Serial.println("Filling stopped");
   displayCurrentMenu(); // Tampilkan menu setelah berhenti mengisi
